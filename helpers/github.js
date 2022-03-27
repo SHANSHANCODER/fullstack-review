@@ -16,6 +16,7 @@ let getReposByUsername = (username,callback) => {
   // but you'll have to fill in the URL
   let options = {
     url: 'FILL ME IN',
+    method: GET,
 
     headers: {
       'User-Agent': 'request',
@@ -24,6 +25,6 @@ let getReposByUsername = (username,callback) => {
   };
 
 }
-
+//axios(options)
 
 module.exports.getReposByUsername = getReposByUsername;

@@ -35,16 +35,14 @@ let Repo = mongoose.model("Repo", repoSchema);
 // //console.log("data>>>>>>>",data)
 // }
 
-
-
-let save = (data) => {
-  Repo.create(data,(err,result)=>{
-    if (err){
-      throw err;
+let save = (data, callback = () => {}) => {
+  Repo.create(data, (err, result) => {
+    if (err) {
+      callback(err);
     } else {
-      console.log(result)
+      callback(null, result);
     }
-  })
+  });
   // for (var i = 0; i < data.length; i++) {
   //   let userrepo = new Repo({
   //     repo_id: data[i].id,
@@ -56,16 +54,16 @@ let save = (data) => {
   //   // console.log ('userrepos>>>>',userrepos)
   //   // console.log('userrepo>>>>',userrepo)
   //   userrepo.save();
-    //model.create
-    // repos.aggregate(
-    //   [
-    //     {$sort : {repo_id: 1}}
-    //   ]
-    // )
- // }
+  //model.create
+  // repos.aggregate(
+  //   [
+  //     {$sort : {repo_id: 1}}
+  //   ]
+  // )
+  // }
   //let repos = Repo.find()
 
- // console.log("Repo>>>>");
+  // console.log("Repo>>>>");
   // data = {
   //   id : data.id,
   //   name : data.name,
@@ -81,15 +79,20 @@ let save = (data) => {
 
   //insert into db
 };
+const getRepos = function (callback) {
+  // I-->callback---next step
+  // access to the repos and use callback to take the result
+  //
+  Repo.find((err, repos) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, repos);
+    }
+  });
+};
 
-
-Repo.find((err,result)=>{
-if(err){
-  throw err;
-} else {
-   console.log('result>>>>>>>>',result)
-   
-}
-})
+//getRepos(console.log);
 
 module.exports.save = save;
+module.exports.getRepos = getRepos;
